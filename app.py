@@ -37,7 +37,7 @@ stop_with_first_find = False
 log_time = 1
 
 # [config] Thread counts
-thread_count = 1  # multiprocessing.cpu_count() * 2
+thread_count = multiprocessing.cpu_count() * 2
 
 # [handle by program] Threads list
 threads = list()
