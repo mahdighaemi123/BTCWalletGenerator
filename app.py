@@ -9,15 +9,19 @@ import threading
 import multiprocessing
 from bitcoinlib.keys import Key, HDKey
 
-# [config] Pattern
+# [config] Patterns
 # [You cant use uppercase letter "O", uppercase letter "I", lowercase letter "l", and the number "0" in BTC address]
-desired_patterns = ["1MAHDI", "1Violet", "1Moon", "1MVFA", "1SoL"]
+desired_patterns = ["1MAHDI", "1Violet", "1Moon", "1MVFA", "1SoL",
+                    "1Rasta", "1Zahra", "1mahdi", "1NAVID", "1hosein",
+                    "1otis", "1Vahid", "1VAHID", "1Mahdia", "1Dark", "1Black",
+                    "1Vahid", "1Morteza", "1Ali", "1Reza", "1Mahdi",
+                    "1rasta", "1zahra", "1python", "1btc", "1BTC", "1PYTHON"]
 
 # [config] Folder/Dir for saving result
 wallets_dir = "wallets"
 
 # [config] Stop with first find
-stop_with_first_find = True
+stop_with_first_find = False
 
 # [config] Log every sec
 log_time = 1
@@ -67,7 +71,7 @@ class BTCWalletGenarator(threading.Thread):
 
     PUBLIC KEY
         Public Key (hex)            {self.key.public_hex}
-        Public Key uncompr. (hex)   {self.key.public_uncompressed_hex}
+        Public Key uncompr (hex)    {self.key.public_uncompressed_hex}
         Public Key Hash160          {self.key.hash160.hex()}
         Address (b58)               {self.key.address()}
 
