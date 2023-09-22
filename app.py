@@ -16,7 +16,7 @@ desired_patterns = ["1VioLet", "1Moon", "1MVFA", "1SoL",
                     "1otis", "1BLACK", "1DARK", "1Dark",
                     "1Vahid", "1Morteza", "1Reza", "1Mahdi",
                     "1rasta", "1zahra", "1python", "1btc",
-                    "1BTC", "1Navid", "1ALi", "1Ghaemi", "1a"]
+                    "1BTC", "1Navid", "1ALi", "1Ghaemi"]
 
 # [config] Search mode config
 find_from_start = True
