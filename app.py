@@ -5,18 +5,19 @@
 import os
 import time
 import datetime
+import re
 import threading
 import multiprocessing
 from bitcoinlib.keys import Key, HDKey
 
 # [config] Patterns
 # [You cant use uppercase letter "O", uppercase letter "I", lowercase letter "l", and the number "0" in BTC address]
-desired_patterns = ["1VioLet", "1Moon", "1MVFA", "1SoL",
+desired_patterns = ["1VioLet", "1Moon", "1MVFA",
                     "1Rasta", "1Zahra", "1mahdi", "1hosein",
                     "1otis", "1BLACK", "1DARK", "1Dark",
                     "1Vahid", "1Morteza", "1Reza", "1Mahdi",
-                    "1rasta", "1zahra", "1python", "1btc",
-                    "1BTC", "1Navid", "1ALi", "1Ghaemi"]
+                    "1rasta", "1zahra", "1python",
+                    "1Navid", "1Ghaemi"]
 
 # [config] Search mode config
 find_from_start = True
@@ -36,7 +37,7 @@ stop_with_first_find = False
 log_time = 1
 
 # [config] Thread counts
-thread_count = multiprocessing.cpu_count() * 2
+thread_count = 1  # multiprocessing.cpu_count() * 2
 
 # [handle by program] Threads list
 threads = list()
@@ -90,31 +91,43 @@ class BTCWalletGenarator(threading.Thread):
     """
         return wallet_info
 
+    def get_match_pattern(self):
+
+        for desired_pattern in self.desired_patterns:
+            if compare_case_insensitive:
+                searcher = re.search(
+                    desired_pattern, self.address, re.IGNORECASE)
+            else:
+                searcher = re.search(desired_pattern, self.address)
+
+            if searcher is not None:
+                break
+
+        match_patten = searcher.group() if searcher is not None else "N/A"
+        return match_patten
+
     def generate_custom_address(self):
         global try_count
         try_count += 1
 
         self.key = Key()
+
         address = self.key.address()
+        self.address = address
 
         for desired_pattern in self.desired_patterns:
-
-            original_desired_pattern = desired_pattern
 
             if compare_case_insensitive:
                 desired_pattern = desired_pattern.lower()
                 address = address.lower()
 
             if self.find_from_start and address.startswith(desired_pattern):
-                self.match_patten = original_desired_pattern
                 return True
 
             if self.find_from_middle and desired_pattern in address:
-                self.match_patten = original_desired_pattern
                 return True
 
             if self.find_from_end and address.endswith(desired_pattern):
-                self.match_patten = original_desired_pattern
                 return True
 
         return False
@@ -124,7 +137,7 @@ class BTCWalletGenarator(threading.Thread):
         while not stop_thread:
 
             if self.generate_custom_address():
-                export_data_file_name = f"[{self.match_patten}][{time.time()}].txt"
+                export_data_file_name = f"[{self.get_match_pattern()}][{time.time()}].txt"
 
                 with open(os.path.join(wallets_dir, export_data_file_name), "w") as file:
                     file.write(self.get_info())
