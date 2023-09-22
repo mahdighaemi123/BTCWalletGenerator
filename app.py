@@ -11,11 +11,12 @@ from bitcoinlib.keys import Key, HDKey
 
 # [config] Patterns
 # [You cant use uppercase letter "O", uppercase letter "I", lowercase letter "l", and the number "0" in BTC address]
-desired_patterns = ["1MAHDI", "1Violet", "1Moon", "1MVFA", "1SoL",
-                    "1Rasta", "1Zahra", "1mahdi", "1NAVID", "1hosein",
-                    "1otis", "1Vahid", "1VAHID", "1Mahdia", "1Dark", "1Black",
-                    "1Vahid", "1Morteza", "1Ali", "1Reza", "1Mahdi",
-                    "1rasta", "1zahra", "1python", "1btc", "1BTC", "1PYTHON"]
+desired_patterns = ["1VioLet", "1Moon", "1MVFA", "1SoL",
+                    "1Rasta", "1Zahra", "1mahdi", "1hosein",
+                    "1otis", "1BLACK", "1DARK", "1Dark",
+                    "1Vahid", "1Morteza", "1Reza", "1Mahdi",
+                    "1rasta", "1zahra", "1python", "1btc",
+                    "1BTC", "1Navid", "1ALi", "1Ghaemi"]
 
 # [config] Folder/Dir for saving result
 wallets_dir = "wallets"
