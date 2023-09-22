@@ -16,7 +16,15 @@ desired_patterns = ["1VioLet", "1Moon", "1MVFA", "1SoL",
                     "1otis", "1BLACK", "1DARK", "1Dark",
                     "1Vahid", "1Morteza", "1Reza", "1Mahdi",
                     "1rasta", "1zahra", "1python", "1btc",
-                    "1BTC", "1Navid", "1ALi", "1Ghaemi"]
+                    "1BTC", "1Navid", "1ALi", "1Ghaemi", "1a"]
+
+# [config] Search mode config
+find_from_start = True
+find_from_middle = False
+find_from_end = False
+
+# [config] Compare patterns insensitive
+compare_case_insensitive = True
 
 # [config] Folder/Dir for saving result
 wallets_dir = "wallets"
@@ -91,16 +99,22 @@ class BTCWalletGenarator(threading.Thread):
 
         for desired_pattern in self.desired_patterns:
 
+            original_desired_pattern = desired_pattern
+
+            if compare_case_insensitive:
+                desired_pattern = desired_pattern.lower()
+                address = address.lower()
+
             if self.find_from_start and address.startswith(desired_pattern):
-                self.match_patten = desired_pattern
+                self.match_patten = original_desired_pattern
                 return True
 
             if self.find_from_middle and desired_pattern in address:
-                self.match_patten = desired_pattern
+                self.match_patten = original_desired_pattern
                 return True
 
             if self.find_from_end and address.endswith(desired_pattern):
-                self.match_patten = desired_pattern
+                self.match_patten = original_desired_pattern
                 return True
 
         return False
@@ -129,9 +143,9 @@ if __name__ == "__main__":
         print(f"Starting thread -> [{i}]")
 
         generator = BTCWalletGenarator(desired_patterns,
-                                       find_from_start=True,
-                                       find_from_middle=False,
-                                       find_from_end=False)
+                                       find_from_start=find_from_start,
+                                       find_from_middle=find_from_middle,
+                                       find_from_end=find_from_end)
 
         generator.start()
         threads.append(generator)
