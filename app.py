@@ -47,6 +47,7 @@ stop_thread = False
 
 # [handle by program] How many try happend
 try_count = 0
+found_wallet_count = 0
 
 # Create wallets folder if not exist
 if not os.path.exists(wallets_dir):
@@ -134,6 +135,8 @@ class BTCWalletGenarator(threading.Thread):
 
     def run(self):
         global stop_thread
+        global found_wallet_count
+
         while not stop_thread:
 
             if self.generate_custom_address():
@@ -144,6 +147,7 @@ class BTCWalletGenarator(threading.Thread):
                     file.write(self.get_info())
 
                 print(f"Successfully found a wallet [{match_pattern}]")
+                found_wallet_count += 1
 
                 if (stop_with_first_find):
                     return
@@ -167,7 +171,7 @@ if __name__ == "__main__":
     # Log section
     while (True):
         lives = [thread for thread in threads if thread.is_alive()]
-        print(f'[{datetime.datetime.now()}] [{len(lives)}/{len(threads)}] [{try_count}] Genarating for desired patterns in BTC wallet address')
+        print(f'[{datetime.datetime.now()}] [{len(lives)}/{len(threads)}] [{found_wallet_count}/{try_count}] Genarating for desired patterns in BTC wallet address')
 
         if (len(lives) != thread_count):
             print("Ending -> program")
