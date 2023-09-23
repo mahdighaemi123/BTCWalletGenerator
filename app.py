@@ -34,7 +34,7 @@ wallets_dir = "wallets"
 stop_with_first_find = False
 
 # [config] Log every sec
-log_time = 1
+log_time = 60
 
 # [config] Thread counts
 thread_count = multiprocessing.cpu_count() * 2
@@ -137,12 +137,13 @@ class BTCWalletGenarator(threading.Thread):
         while not stop_thread:
 
             if self.generate_custom_address():
-                export_data_file_name = f"[{self.get_match_pattern()}][{time.time()}].txt"
+                match_pattern = self.get_match_pattern()
+                export_data_file_name = f"[{match_pattern}][{time.time()}].txt"
 
                 with open(os.path.join(wallets_dir, export_data_file_name), "w") as file:
                     file.write(self.get_info())
 
-                print(f"Successfully found a wallet")
+                print(f"Successfully found a wallet [{match_pattern}]")
 
                 if (stop_with_first_find):
                     return
