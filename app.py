@@ -12,6 +12,7 @@ from bitcoinlib.keys import Key, HDKey
 
 # [config] Patterns
 # [You cant use uppercase letter "O", uppercase letter "I", lowercase letter "l", and the number "0" in BTC address]
+# [All address will start with 1 like 1VioLet...]
 desired_patterns = ["1VioLet", "1Moon", "1MVFA",
                     "1Rasta", "1Zahra", "1mahdi", "1hosein",
                     "1otis", "1BLACK", "1DARK", "1Dark",
